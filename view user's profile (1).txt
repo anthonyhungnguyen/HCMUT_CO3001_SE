@@ -1,0 +1,82 @@
+title View user's profile
+
+actor Admin
+activate Admin
+
+participant Website
+participant Server
+participant Database
+activate Website
+alt Live Dashboard
+Admin->Website:Click [Live Dashboard]
+Website->Server: getLiveInfo()
+activate Server
+Server->Database:liveInfo()
+activate Database
+Server<--Database:Live info Of Parking
+deactivate Database
+Website<--Server:Display a table with names of real-time drivers
+Website<--Server: Name filter form
+deactivate Server
+Admin->Website:Input [Name]
+Admin->Website:Click [Filter]
+Website->Server: getMemberDetails(id)
+activate Server
+Server->Database: retrieve(id)
+activate Database
+Server<--Database:Info of member
+deactivate Database
+Website<--Server:Display a table with details of driver
+deactivate Server
+else User Statistics
+Admin->Website:Click [User Statistics]
+Website->Server:getAllInfo()
+activate Server
+Server->Database:retrieve()
+activate Database
+Server<--Database:Info all members in system
+deactivate Database
+Website<--Server:Display a table with all details of all drivers in system
+Website<--Server: Name-Phone filter form
+deactivate Server
+Admin->Website:Input [Name, Phone]
+Admin->Website:Click [Filter]
+Website->Server: getMemberDetails(name, phone)
+activate Server
+Server->Database: retrieve(name, phone)
+activate Database
+Server<--Database: Info of member
+deactivate Database
+Website<--Server: Display a table with details of driver
+deactivate Server
+else Reports
+Admin->Website:Click [See Reports]
+Website->Server: showReport()
+activate Server
+Website<--Server: Date filter form
+deactivate Server
+Admin->Website:Input [Date]
+Admin->Website:Click [Filter]
+Website->Server:getReport(date)
+activate Server
+Server->Database:retrieve(date)
+activate Database
+Server<--Database:Info of all car owner's in that date
+deactivate Database
+Website<--Server:Display a table with details of all drivers
+Website<--Server: Name filter form
+deactivate Server
+Admin->Website:Input [Name]
+Admin->Website:Click [Filter]
+Website->Server: getMemberDetails(id)
+activate Server
+Server->Database: retrieve(id)
+activate Database
+Server<--Database:Info of member
+deactivate Database
+Website<--Server:Display a table with details of driver
+deactivate Server
+end
+
+
+

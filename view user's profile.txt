@@ -1,0 +1,70 @@
+title View user's profile
+
+actor Admin
+activate Admin
+
+participant Website
+participant Server
+participant Database
+activate Website
+alt Live Dashboard
+Admin->Website:Click [Live Dashboard]
+Website->Server: getLiveInfo()
+activate Server
+Server->Database:liveInfo()
+activate Database
+Server<--Database:Live info Of Parking
+deactivate Database
+Website<--Server:Display a table with names of real-time drivers
+deactivate Server
+Admin->Website: Choose [Name]
+Website->Server: getMemberDetails(id)
+activate Server
+Server->Database: retrieve(id)
+activate Database
+Server<--Database:Info of member
+deactivate Database
+Website<--Server:Display a table with details of driver
+deactivate Server
+else User Statistics
+Admin->Website:Click [User Statistics]
+Website->Server:getAllInfo()
+activate Server
+Server->Database:retrieve()
+activate Database
+Server<--Database:Info all members in system
+deactivate Database
+Website<--Server:Display a table with all details of all drivers in system
+deactivate Server
+Admin->Website: Filter [Name, Phone]
+Website->Server: getMemberDetails(name, phone)
+activate Server
+Server->Database: retrieve(name, phone)
+activate Database
+Server<--Database: Info of member
+deactivate Database
+Website<--Server: Display a table with details of driver
+deactivate Server
+else Reports
+Admin->Website:Click [See Reports]
+Website->Server:getReport(date)
+activate Server
+Server->Database:retrieve(date)
+activate Database
+Server<--Database:Info of all car owner's in that date
+deactivate Database
+Website<--Server:Display a table with details of all drivers
+deactivate Server
+Admin->Website: Choose [Name]
+Website->Server: getMemberDetails(id)
+activate Server
+Server->Database: retrieve(id)
+activate Database
+Server<--Database:Info of member
+deactivate Database
+Website<--Server:Display a table with details of driver
+deactivate Server
+end
+
+
+

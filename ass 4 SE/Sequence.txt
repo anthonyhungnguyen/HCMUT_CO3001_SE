@@ -1,0 +1,32 @@
+title Add user's profile
+
+actor Admin
+activate Admin
+
+boundary View
+control Controller
+entity Model
+activate View
+  Admin->View: Fill add user form
+  Admin->View: Click [Add User]
+  View->View:btnAdd_Click(arg0)
+  activate View
+  View->Controller: AddNewUser()
+  deactivate View
+  activate Controller
+  Controller->Controller: Save(user)
+  activate Controller
+  alt No duplicate
+  Controller->Model: insert(user)
+  activate Model
+  Model-->Controller:Success
+  deactivate Model
+  Controller->View:UpdateGridWithAddedUser(user)
+  else Has Duplicate
+  Controller->View: notifyError(err)
+  deactivate Controller
+  
+  end
+  deactivate Controller
+  
+end

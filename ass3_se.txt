@@ -1,0 +1,40 @@
+\begin{itemize}
+    \item Website using React framework for building UI.
+    \item Website is built using components as the natural ways how React framework works.
+    \item Each component of React requires data from server to display to users.
+    \item Server includes 3 packages:
+    \begin{itemize}
+        \item User Controller: used for keeping controller for user such as:
+        \begin{itemize}
+            \item Profile View.
+            \item Profile Edit.
+            \item Subscription Edit.
+        \end{itemize}
+        \item Data Processing: us used to save data to database or transfer data to our server.
+        \item Express: helps server manage everything, from routes, to handling requests. 
+    \end{itemize}
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{User:}
+    \begin{itemize}
+        \item User requests viewing/editing profile or subscription type on Web browser
+        \item \textbf{Viewing:}
+        \begin{itemize}
+            \item The viewing request is transferred to the User controller and separated into specific categories.
+            \item The request from User Controller will be sent to Express which will handle and pass the demand for data to Data Processing component.
+            \item Data is transferred from the Database component, going through Persistence component to reach Data Processing component and finally fetch to Express which will be used to render views for that user.
+        \end{itemize}
+        \item \textbf{Editing:}
+        \begin{itemize}
+            \item The editing request is transferred to the User controller and separated into specific categories. 
+            \item The request from User Controller will be sent to Express which will handle and pass request data saving to Data Processing component.
+            \item Data is transferred to Database component, going through Persistence component to save to Database component and finally fetch back newest data to Data Processing component and Express component which will be used to render views for that user.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Administrator:}
+    \begin{itemize}
+        \item Administrator has privileges to view/edit information of all users in the system
+        \item The process happens the same as User but instead of rendering data of one user, the whole database will be fetch to view of administrator.
+    \end{itemize}
+\end{itemize}
